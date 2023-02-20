@@ -69,12 +69,16 @@ function! s:MenuController._echoPrompt()
 
         echo 'Menu: [' . join(shortcuts, ',') . '] (' . navHelp . ' or shortcut): '
     else
-        echo 'NERDTree Menu. ' . navHelp . ', or the shortcuts indicated'
-        echo '========================================================='
+        " echo 'NERDTree Menu. ' . navHelp . ', or the shortcuts indicated'
+        " echo '========================================================='
+        exe "set winheight=10"
+        redraw!
 
         for i in range(0, len(self.menuItems)-1)
             if self.selection ==# i
+                echohl Question
                 echo '> ' . self.menuItems[i].text
+                echohl None
             else
                 echo '  ' . self.menuItems[i].text
             endif
@@ -153,7 +157,7 @@ function! s:MenuController._setCmdheight()
     if self.isMinimal()
         let &cmdheight = 1
     else
-        let &cmdheight = len(self.menuItems) + 3
+        let &cmdheight = len(self.menuItems) + 1
     endif
 endfunction
 
